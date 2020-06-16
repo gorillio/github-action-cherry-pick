@@ -48,7 +48,7 @@ jobs:
     - name: checkout
       uses: actions/checkout@v1
     - name: Create PR to branch
-      uses: gorillio/cherry-pick@master
+      uses: gorillio/github-action-cherry-pick@master
       with:
         pr_branch: '0.1.x'
       env:
