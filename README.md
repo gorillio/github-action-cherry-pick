@@ -28,7 +28,7 @@ developers works on but we want to push the changes to the Release branches too.
 
 #### `pr_labels`
 
-Labels to apply on the PR created. Default: `autocreated` 
+CSV Labels to apply on the PR created. Default: `autocreated` 
 
 ## Example usage
 
