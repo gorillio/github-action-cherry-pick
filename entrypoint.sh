@@ -24,9 +24,9 @@ git_cmd() {
 }
 
 PR_BRANCH="auto-$GITHUB_SHA"
-MESSAGE=$(git log -1 --format="%s" $GITHUB_SHA)
+MESSAGE=$(git log -1 $GITHUB_SHA | grep "AUTO" | wc -l)
 
-if [[ $MESSAGE =~ "AUTO" ]]; then
+if [[ $MESSAGE -gt 0 ]]; then
   echo "Autocommit, NO ACTION"
   exit 0
 fi
@@ -35,7 +35,6 @@ git_setup
 git_cmd git remote update
 git_cmd git fetch --all
 git_cmd git checkout -b "${PR_BRANCH}" origin/"${INPUT_PR_BRANCH}"
-git_cmd git push -u origin "${PR_BRANCH}"
 git_cmd git cherry-pick "${GITHUB_SHA}"
-git_cmd git push
+git_cmd git push -u origin "${PR_BRANCH}"
 git_cmd hub pull-request -b "${INPUT_PR_BRANCH}" -h "${PR_BRANCH}" -l "${INPUT_PR_LABELS}" -a "${GITHUB_ACTOR}" -m "\"AUTO: ${MESSAGE}\""
