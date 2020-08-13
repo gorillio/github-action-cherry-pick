@@ -31,10 +31,12 @@ if [[ $MESSAGE -gt 0 ]]; then
   exit 0
 fi
 
+PR_TITLE=$(git log -1 --format="%s" $GITHUB_SHA)
+
 git_setup
 git_cmd git remote update
 git_cmd git fetch --all
 git_cmd git checkout -b "${PR_BRANCH}" origin/"${INPUT_PR_BRANCH}"
 git_cmd git cherry-pick "${GITHUB_SHA}"
 git_cmd git push -u origin "${PR_BRANCH}"
-git_cmd hub pull-request -b "${INPUT_PR_BRANCH}" -h "${PR_BRANCH}" -l "${INPUT_PR_LABELS}" -a "${GITHUB_ACTOR}" -m "\"AUTO: ${MESSAGE}\""
+git_cmd hub pull-request -b "${INPUT_PR_BRANCH}" -h "${PR_BRANCH}" -l "${INPUT_PR_LABELS}" -a "${GITHUB_ACTOR}" -m "\"AUTO: ${PR_TITLE}\""
