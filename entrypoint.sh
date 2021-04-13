@@ -23,7 +23,7 @@ git_cmd() {
   fi
 }
 
-PR_BRANCH="auto-$GITHUB_SHA"
+PR_BRANCH="auto-$INPUT_PR_BRANCH-$GITHUB_SHA"
 MESSAGE=$(git log -1 $GITHUB_SHA | grep "AUTO" | wc -l)
 
 if [[ $MESSAGE -gt 0 ]]; then
