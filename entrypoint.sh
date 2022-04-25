@@ -13,6 +13,7 @@ EOF
 
   git config --global user.email "$GITBOT_EMAIL"
   git config --global user.name "$GITHUB_ACTOR"
+  git config --global --add safe.directory /github/workspace
 }
 
 git_cmd() {
